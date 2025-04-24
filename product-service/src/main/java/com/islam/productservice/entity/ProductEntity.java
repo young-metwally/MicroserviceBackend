@@ -1,9 +1,9 @@
 package com.islam.productservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.io.Serializable;
 
@@ -14,9 +14,22 @@ public class ProductEntity implements Serializable {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Id
     private Integer id;
+    @Column(nullable = false, length = 50)
     private String name;
+    @Column(nullable = false, length = 100)
     private String description;
+    @Column(nullable = false)
     private Double price;
+    @Column(nullable = false, length = 255, name = "image_url")
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Integer getId() {
         return id;

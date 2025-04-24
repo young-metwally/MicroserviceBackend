@@ -1,9 +1,12 @@
 package com.islam.productservice.contoroller;
 
 import com.islam.productservice.dto.ProductDTO;
+import com.islam.productservice.exceptions.DataNotValidatedException;
 import com.islam.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +31,19 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody @Validated ProductDTO productDTO, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new DataNotValidatedException(new Error("products not validated"));
+        }
         ProductDTO createdProduct = productService.createProduct(productDTO);
         return ResponseEntity.status(201).body(createdProduct);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Integer id, @RequestBody @Validated ProductDTO productDTO, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new DataNotValidatedException(new Error("products not validated"));
+        }
         ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
         return ResponseEntity.ok(updatedProduct);
     }

@@ -1,13 +1,32 @@
 package com.islam.productservice.dto;
 
+import jakarta.validation.constraints.*;
+
 import java.io.Serializable;
 
 public class ProductDTO implements Serializable {
 
     private Integer id;
+    @NotEmpty
+    @Size(min = 1, max = 50)
     private String name;
+    @NotEmpty
+    @Size(min = 1, max = 100)
     private String description;
+    @NotNull
+    @DecimalMin(value = "0.25")
     private Double price;
+    @NotEmpty
+    @Size(min = 1, max = 255)
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Integer getId() {
         return id;
