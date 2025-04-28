@@ -12,4 +12,5 @@ public interface UserService {
     UserDTO getUserById(int id);
     UserDTO getUserByEmail(String email);
     UserDTO getCurrentUser();
+    UserDTO saveUser(UserDTO user);
 }
